@@ -1,5 +1,9 @@
 package com.example.mya;
 
+import android.content.Context;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
+import android.util.Base64;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -7,24 +11,124 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
+import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 public class cifrador {
-    String path;
+    Uri uri;
     KeyGenerator keygen=null;
+    Context context;
 
-    public cifrador(String path) {
-        this.path = path;
+    public cifrador(Uri uri, Context context) {
+        this.uri = uri;
+        this.context=context;
+    }
+    public void cifra(SecretKey key) throws Exception {
+        String textoSalida = cifrarF(readSavedDataR(uri), key);
+        alterDocument(uri,textoSalida.getBytes());
+
+    }
+    public void  descifra(SecretKey key) throws Exception {
+        String textoSalida = descifrar(readSavedDataR(uri), key);
+        //tvTexto.setText(textoSalida);
+        alterDocument(uri,textoSalida.getBytes());
+    }
+
+    public String cifrarF(String datos, SecretKey key) throws Exception{
+        //SecretKeySpec secretKey = generateKey(password);
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+        byte[] datosEncriptadosBytes = cipher.doFinal(datos.getBytes());
+        String datosEncriptadosString = Base64.encodeToString(datosEncriptadosBytes, Base64.DEFAULT);
+        return datosEncriptadosString;
+        ////hola
+    }
+    public String descifrar(String datos, SecretKey key) throws Exception{
+        //SecretKeySpec secretKey = generateKey(password);
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, key);
+        byte[] datosDescoficados = Base64.decode(datos, Base64.DEFAULT);
+        byte[] datosDesencriptadosByte = cipher.doFinal(datosDescoficados);
+        String datosDesencriptadosString = new String(datosDesencriptadosByte);
+        return datosDesencriptadosString;
+    }
+    public void alterDocument(Uri uri,byte[] bytes) {
+        try {
+            ParcelFileDescriptor pfd = context.getContentResolver().
+                    openFileDescriptor(uri, "w");
+            FileInputStream fis=new FileInputStream(pfd.getFileDescriptor());
+            String tex=readSavedData(pfd);
+            //int i=fis.read();
+            Log.d("file d", "("+tex+")");
+            FileOutputStream fileOutputStream =
+                    new FileOutputStream(pfd.getFileDescriptor());
+
+            fileOutputStream.write(bytes);
+            /*
+            fileOutputStream.write(("Overwritten by MyCloud at " +
+                    System.currentTimeMillis() + "\n").getBytes());*/
+            // Let the document provider know you're done by closing the stream.
+            fileOutputStream.flush();
+            fileOutputStream.close();
+            pfd.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public String readSavedData ( ParcelFileDescriptor p) {
+        StringBuffer datax = new StringBuffer("");
+        try {
+            FileInputStream fIn =new  FileInputStream(p.getFileDescriptor()) ;
+            InputStreamReader isr = new InputStreamReader ( fIn ) ;
+            BufferedReader buffreader = new BufferedReader ( isr ) ;
+
+            String readString = buffreader.readLine ( ) ;
+            while ( readString != null ) {
+                datax.append(readString);
+                readString = buffreader.readLine ( ) ;
+            }
+
+            isr.close ( ) ;
+        } catch ( IOException ioe ) {
+            ioe.printStackTrace ( ) ;
+        }
+        return datax.toString() ;
+    }
+
+
+
+    private String readSavedDataR (Uri uri) throws FileNotFoundException {
+        StringBuffer datax = new StringBuffer("");
+        ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "r");
+        try {
+            FileInputStream fIn =new  FileInputStream(pfd.getFileDescriptor()) ;
+            InputStreamReader isr = new InputStreamReader ( fIn ) ;
+            BufferedReader buffreader = new BufferedReader ( isr ) ;
+
+            String readString = buffreader.readLine ( ) ;
+            while ( readString != null ) {
+                datax.append(readString);
+                readString = buffreader.readLine ( ) ;
+            }
+
+            isr.close ( ) ;
+        } catch ( IOException ioe ) {
+            ioe.printStackTrace ( ) ;
+        }
+        return datax.toString() ;
     }
     public SecretKey inicializa(){
-        FileReader fr= null;
+        //FileReader fr= null;
     /*
         try {
             File archivoE= new File(path);
