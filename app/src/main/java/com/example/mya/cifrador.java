@@ -1,5 +1,6 @@
 package com.example.mya;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
@@ -17,6 +18,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Map;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -24,26 +28,42 @@ import javax.crypto.SecretKey;
 
 public class cifrador {
     Uri uri;
-    KeyGenerator keygen=null;
+    //KeyGenerator keygen;
     Context context;
+    String text;
 
-    public cifrador(Uri uri, Context context) {
+    public cifrador(Uri uri, String text,Context context) {
         this.uri = uri;
+        this.text=text;
         this.context=context;
     }
+
     public void cifra(SecretKey key) throws Exception {
-        String textoSalida = cifrarF(readSavedDataR(uri), key);
+        String textoSalida = cifrarF(text, key);
         alterDocument(uri,textoSalida.getBytes());
+        Log.d("listo cifrado","hola");
+
 
     }
+
+    public  void fragmenta(int n,int k,SecretKey keys){
+        final byte[] key=keys.getEncoded();
+        Log.d("KKKKKKKKKKKKKKKKKKKKKKK", Arrays.toString(key));
+        final Scheme a=new Scheme(new SecureRandom(),n,k);
+        final Map<Integer, byte[]> admin= a.split(key);
+        final byte[] rec=a.join(admin);
+        Log.d("LLLLLLLLLLLLLLLLL",Arrays.toString(rec));
+        //tv.setText("texto cifrado");
+    }
     public void  descifra(SecretKey key) throws Exception {
-        String textoSalida = descifrar(readSavedDataR(uri), key);
+        String textoSalida = descifrar(text, key);
         //tvTexto.setText(textoSalida);
         alterDocument(uri,textoSalida.getBytes());
     }
 
     public String cifrarF(String datos, SecretKey key) throws Exception{
         //SecretKeySpec secretKey = generateKey(password);
+        Log.d("adentro de cifraf","aqui");
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, key);
         byte[] datosEncriptadosBytes = cipher.doFinal(datos.getBytes());
@@ -107,29 +127,10 @@ public class cifrador {
 
 
 
-    private String readSavedDataR (Uri uri) throws FileNotFoundException {
-        StringBuffer datax = new StringBuffer("");
-        ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "r");
-        try {
-            FileInputStream fIn =new  FileInputStream(pfd.getFileDescriptor()) ;
-            InputStreamReader isr = new InputStreamReader ( fIn ) ;
-            BufferedReader buffreader = new BufferedReader ( isr ) ;
 
-            String readString = buffreader.readLine ( ) ;
-            while ( readString != null ) {
-                datax.append(readString);
-                readString = buffreader.readLine ( ) ;
-            }
-
-            isr.close ( ) ;
-        } catch ( IOException ioe ) {
-            ioe.printStackTrace ( ) ;
-        }
-        return datax.toString() ;
-    }
     public SecretKey inicializa(){
         //FileReader fr= null;
-    /*
+        /*
         try {
             File archivoE= new File(path);
             int size = (int) archivoE.length();
@@ -158,15 +159,17 @@ public class cifrador {
 ///listo para cifrar
 //documents example android segirdad
 */
+        KeyGenerator keygenz= null;
         try {
-            keygen = KeyGenerator.getInstance("AES","BC");
+            keygenz = KeyGenerator.getInstance("AES","BC");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
         }
-        keygen.init(128);
-        final SecretKey key = keygen.generateKey();
+        keygenz.init(128);
+        final SecretKey key = keygenz.generateKey();
+        //this.keygen=key;
         return key;
     }
 
