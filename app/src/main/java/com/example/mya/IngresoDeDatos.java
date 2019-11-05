@@ -88,6 +88,7 @@ public class IngresoDeDatos extends AppCompatActivity {
                 myfile=new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 myfile.setType("*/*");
                 startActivityForResult(myfile,10);
+
             }
         });
         //boton regresar
@@ -185,6 +186,7 @@ public class IngresoDeDatos extends AppCompatActivity {
                     file2cipher=u;
                     Log.d("uri",file2cipher.toString());
                     //nombreArchivo.setText(path);
+                    nombreArchivo.setText(file2cipher.getPath());
                 }
             break;
         }

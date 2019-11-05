@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">MyA</string>
+    <string name="app_name">keySharing</string>
     <string name="BotonCifrar">Cifrar</string>
     <string name="botonvisualizar">Visualizar</string>
     <string name="FragmentosACrear">Ingresa el numero de fragmentos a crear</string>
-    <string name="FragmentosMinimos">Ingresa el numero de Fragmentos minimos para recuperar el secreto</string>
+    <string name="FragmentosMinimos">Ingresa el numero de fragmentos minimos para recuperar el secreto</string>
     <string name="botonRegresar">Regresar</string>
     <string name="botonCirfrar">MyA</string>
     <string name="botonSeleccionar">Seleccionar Archivo</string>

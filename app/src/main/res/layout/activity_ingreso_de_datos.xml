@@ -8,15 +8,17 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="106dp"
-        android:layout_height="41dp"
+
+        android:layout_height="29dp"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
         android:text="@string/FragmentosACrear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.091" />
+        app:layout_constraintVertical_bias="0.120000005" />
 
     <Button
         android:id="@+id/Bcifrar"
@@ -57,8 +59,10 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
         android:text="@string/FragmentosMinimos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,6 +75,7 @@
         android:id="@+id/NFMPR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -92,9 +97,11 @@
 
     <TextView
         android:id="@+id/NombreArchivo"
-        android:layout_width="215dp"
+
         android:layout_height="37dp"
         android:text="@string/NombreDeArchivo"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -106,7 +113,7 @@
         android:id="@+id/bDescifrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Descifrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
