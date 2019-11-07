@@ -12,5 +12,10 @@
     <string name="Nombreynumerodefragmento">Nombre del fragmento y numero</string>
     <string name="textoSuperior">Acerque el dispositivo con el que quiere compartir este fragmento</string>
     <string name="textoInferior">En caso de cerrar la aplicacion estos fragmentos se perderan!!!!</string>
+    /////////////
+    <string name="botonAlmacenar">Almacenar</string>
+    <string name="botonConcatenar">Concatenar</string>
+    <string name="botonDescifrar">Descifrar</string>
+    <string name="textoMensaje">Que quieres hacer con el fragmento</string>
 
 </resources>
