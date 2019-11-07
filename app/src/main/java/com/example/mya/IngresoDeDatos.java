@@ -20,11 +20,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.crypto.Cipher;
@@ -55,6 +57,7 @@ public class IngresoDeDatos extends AppCompatActivity {
     int numero2;
     SecretKey ree;
     Uri file2cipher=null;//archivo a cifrar
+    //final Map<Integer, byte[]> fragmentos;
     ////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,7 @@ public class IngresoDeDatos extends AppCompatActivity {
         regresar=(Button) findViewById(R.id.Bback);
         archivo =(Button) findViewById(R.id.Barchivo);
         descifrar=(Button) findViewById(R.id.bDescifrar);
-
+        //final Map<Integer, byte[]>[] fragmentos = new Map<Integer, byte[]>[1];
         //NumeroMinimo.getTex
         //key generate
         KeyGenerator keygen= null;
@@ -111,15 +114,41 @@ public class IngresoDeDatos extends AppCompatActivity {
                     alterDocument(file2cipher,textoSalida.getBytes());
                     //Secret Sharing
                     final byte[] k=key.getEncoded();
-                    Log.d("KKKKKKKKKKKKKKKKKKKKKKK", Arrays.toString(k));
+                    Log.d("original", Arrays.toString(k));
                     final Scheme a=new Scheme(new SecureRandom(),numero1,numero2);
-                    final Map<Integer, byte[]> admin= a.split(k);
-                    final byte[] rec=a.join(admin);
+                    final Map<Integer, byte[]> admin= a.generarSecretos(k);
+
+                    final byte[] rec=a.recuperar(admin);
                     SecretKey ley= new SecretKeySpec(rec,0,rec.length,"AES");
                     ree=ley;
                     final byte[] kettobyte=ley.getEncoded();
                     recuperada=rec;
-                    Log.d("LLLLLLLLLLLLLLLLL",Arrays.toString(kettobyte));
+                    Log.d("recuperada",Arrays.toString(kettobyte));
+                    ////////////////////
+                    ///////
+                    Integer nume[]= new Integer[numero1];
+                    byte[][] bytes=new byte[numero1][16];
+
+                    int ko=0;
+                    //HashMap<Integer,byte[]> adminhash=(HashMap<Integer, byte[]>) admin;
+                    for (Map.Entry <Integer, byte[]> fragmento : admin.entrySet()){
+                        Integer clave = fragmento.getKey();
+                        byte[] valor = fragmento.getValue();
+                        nume[ko]=clave;
+                        bytes[ko]=valor;
+
+                        System.out.println(nume[ko]+"  ->  "+Arrays.toString(bytes[ko]));
+                        ko++;
+                    }
+                    Intent intent = new Intent(v.getContext(),FCEF.class);
+                    /////////////
+                    intent.putExtra("x",nume);
+                    intent.putExtra("y",bytes);
+                    intent.putExtra("numero",numero1);
+                    //intent.putExtra("map",adminhash);
+                    //intent.write;
+                    //intent.putExtra("llaves", (Serializable) admin);
+                    startActivity(intent);
                     //tvTexto.setText(textoSalida);
                 } catch (Exception e){
                     e.printStackTrace();
@@ -137,6 +166,14 @@ public class IngresoDeDatos extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+                /////////pegar esto en cifrar
+                ////
+                /////
+                /*
+                Intent intent = new Intent(v.getContext(),FCEF.class);
+                intent.putExtra("llaves",)
+                startActivity(intent);*/
+
             }
         });
         //cifrar.setOnClickListener(new View.OnClickListener() {

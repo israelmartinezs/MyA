@@ -5,8 +5,12 @@
     <string name="FragmentosACrear">Ingresa el numero de fragmentos a crear</string>
     <string name="FragmentosMinimos">Ingresa el numero de fragmentos minimos para recuperar el secreto</string>
     <string name="botonRegresar">Regresar</string>
-    <string name="botonCirfrar">MyA</string>
+
     <string name="botonSeleccionar">Seleccionar Archivo</string>
     <string name="NombreDeArchivo">Nombre Del Archivo</string>
+    <string name="textoParaRepartirFragmentos">Seleccione el fragmento que desea compartir</string>
+    <string name="Nombreynumerodefragmento">Nombre del fragmento y numero</string>
+    <string name="textoSuperior">Acerque el dispositivo con el que quiere compartir este fragmento</string>
+    <string name="textoInferior">En caso de cerrar la aplicacion estos fragmentos se perderan!!!!</string>
 
 </resources>

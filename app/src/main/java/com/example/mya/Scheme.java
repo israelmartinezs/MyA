@@ -32,11 +32,11 @@ public class Scheme {
      *
      *
      */
-    public Map<Integer, byte[]> split(byte[] secret) {
+    public Map<Integer, byte[]> generarSecretos(byte[] secret) {
         // genera los valores
-        final byte[][] values = new byte[n][secret.length];
+        final byte[][] values = new byte[n][secret.length];//arreglo de bytes numero de fragmentos y tamano del secreto
         for (int i = 0; i < secret.length; i++) {
-            final byte[] p = Herramientas.generate(random, k - 1, secret[i]);
+            final byte[] p = Herramientas.generate(random, k - 1, secret[i]);//se genera valores aleatorios
             for (int x = 1; x <= n; x++) {
                 values[x - 1][i] = Herramientas.eval(p, (byte) x);
             }
@@ -51,12 +51,9 @@ public class Scheme {
     }
 
 
-    public byte[] join(Map<Integer, byte[]> parts) {
+    public byte[] recuperar(Map<Integer, byte[]> parts) {
         checkArgument(parts.size() > 0, "No parts provided");
         //final int[] lengths = parts.values().stream().mapToInt(v -> v.length).distinct().toArray();
-
-        //checkArgument(lengths.length == 1, "Varying lengths of part values");
-        //final byte[] secret = new byte[lengths[0]];
         final byte[] secret = new byte[16];
         for (int i = 0; i < secret.length; i++) {
             final byte[][] points = new byte[parts.size()][2];
@@ -66,7 +63,7 @@ public class Scheme {
                 points[j][1] = part.getValue()[i];
                 j++;
             }
-            secret[i] = Herramientas.interpolate(points);
+            secret[i] = Herramientas.interpolar(points);
         }
         return secret;
     }

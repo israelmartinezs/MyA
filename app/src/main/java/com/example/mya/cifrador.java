@@ -50,8 +50,8 @@ public class cifrador {
         final byte[] key=keys.getEncoded();
         Log.d("KKKKKKKKKKKKKKKKKKKKKKK", Arrays.toString(key));
         final Scheme a=new Scheme(new SecureRandom(),n,k);
-        final Map<Integer, byte[]> admin= a.split(key);
-        final byte[] rec=a.join(admin);
+        final Map<Integer, byte[]> admin= a.generarSecretos(key);
+        final byte[] rec=a.recuperar(admin);
         Log.d("LLLLLLLLLLLLLLLLL",Arrays.toString(rec));
         //tv.setText("texto cifrado");
     }

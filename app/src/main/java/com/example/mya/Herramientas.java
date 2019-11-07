@@ -48,10 +48,10 @@ public class Herramientas {
             (byte) 0xc0, (byte) 0xf7, (byte) 0x70, (byte) 0x07,
     };
     private static final byte[] EXP = {
-            (byte) 0x01, (byte) 0x03, (byte) 0x05, (byte) 0x0f, (byte) 0x11, (byte) 0x33, (byte) 0x55,
-            (byte) 0xff, (byte) 0x1a, (byte) 0x2e, (byte) 0x72, (byte) 0x96, (byte) 0xa1, (byte) 0xf8,
-            (byte) 0x13, (byte) 0x35, (byte) 0x5f, (byte) 0xe1, (byte) 0x38, (byte) 0x48, (byte) 0xd8,
-            (byte) 0x73, (byte) 0x95, (byte) 0xa4, (byte) 0xf7, (byte) 0x02, (byte) 0x06, (byte) 0x0a,
+            (byte) 0x01, (byte) 0x03, (byte) 0x05, (byte) 0x0f, (byte) 0x11, (byte) 0x33, (byte) 0x55,//6
+            (byte) 0xff, (byte) 0x1a, (byte) 0x2e, (byte) 0x72, (byte) 0x96, (byte) 0xa1, (byte) 0xf8,//13
+            (byte) 0x13, (byte) 0x35, (byte) 0x5f, (byte) 0xe1, (byte) 0x38, (byte) 0x48, (byte) 0xd8,//20
+            (byte) 0x73, (byte) 0x95, (byte) 0xa4, (byte) 0xf7, (byte) 0x02, (byte) 0x06, (byte) 0x0a,//27
             (byte) 0x1e, (byte) 0x22, (byte) 0x66, (byte) 0xaa, (byte) 0xe5, (byte) 0x34, (byte) 0x5c,
             (byte) 0xe4, (byte) 0x37, (byte) 0x59, (byte) 0xeb, (byte) 0x26, (byte) 0x6a, (byte) 0xbe,
             (byte) 0xd9, (byte) 0x70, (byte) 0x90, (byte) 0xab, (byte) 0xe6, (byte) 0x31, (byte) 0x53,
@@ -124,7 +124,7 @@ public class Herramientas {
     };
 
     static byte add(byte a, byte b) {
-        return (byte) (a ^ b);
+        return (byte) (a ^ b);//suma a nivel de bits
     }
 
     static byte sub(byte a, byte b) {
@@ -144,9 +144,14 @@ public class Herramientas {
         //return mul(a, EXP[255 - toUnsignedInt(LOG[toUnsignedInt(b)])]);
         return mul(a, EXP[255 - (LOG[b&0xff]&0xff)]);
     }
+// Horner's method
+    /*
+    En el campo matemático del análisis numérico, el Algoritmo de Horner, llamado así por William George Horner,
+     es un algoritmo para evaluar de forma eficiente funciones polinómicas de una forma monomial.
 
-    static byte eval(byte[] p, byte x) {
-        // Horner's method
+     */
+    static byte eval(byte[] p, byte x) {//numero aleatorio
+
         byte result = 0;
         for (int i = p.length - 1; i >= 0; i--) {
             result = add(mul(result, x), p[i]);
@@ -163,12 +168,12 @@ public class Herramientas {
         return 0;
     }
 
-    static byte[] generate(SecureRandom random, int degree, byte x) {
-        final byte[] p = new byte[degree + 1];
+    static byte[] generate(SecureRandom random, int degree, byte x) {//2
+        final byte[] p = new byte[degree + 1];//numero de fragmentos minimos para recuperar
 
         do {
-            random.nextBytes(p);
-        } while (degree(p) != degree);
+            random.nextBytes(p);//aqui se pone el numero aleatorio
+        } while (degree(p) != degree);//si es igual sale
 
 
         p[0] = x;
@@ -176,7 +181,7 @@ public class Herramientas {
         return p;
     }
 
-    static byte interpolate(byte[][] points) {
+    static byte interpolar(byte[][] points) {
         // calculate f(0) of the given points using Lagrangian interpolation
         final byte x = 0;
         byte y = 0;
