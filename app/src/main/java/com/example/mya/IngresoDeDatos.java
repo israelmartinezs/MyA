@@ -112,6 +112,7 @@ public class IngresoDeDatos extends AppCompatActivity {
                     textoSalida = cifrarF(readSavedDataR(file2cipher), key);
                     Log.d("texto",textoSalida);
                     alterDocument(file2cipher,textoSalida.getBytes());
+                    //System.out.println(file2cipher.);
                     //Secret Sharing
                     final byte[] k=key.getEncoded();
                     Log.d("original", Arrays.toString(k));
@@ -231,6 +232,7 @@ public class IngresoDeDatos extends AppCompatActivity {
     public String readSavedDataR ( Uri uri) throws FileNotFoundException {
         StringBuffer datax = new StringBuffer("");
         ParcelFileDescriptor pfd = this.getContentResolver().openFileDescriptor(uri, "r");
+        System.out.println(uri.get);
         try {
             FileInputStream fIn =new  FileInputStream(pfd.getFileDescriptor()) ;
             InputStreamReader isr = new InputStreamReader ( fIn ) ;
