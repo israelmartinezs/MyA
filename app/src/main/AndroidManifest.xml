@@ -37,7 +37,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:mimeType="text/plain"/>
             </intent-filter>
-        </activity>-->
+        </activity> quitar-->
         <activity
             android:name=".PRF0"
             android:label="Fragmento reciver">
