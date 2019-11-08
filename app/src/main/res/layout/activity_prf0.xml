@@ -20,9 +20,10 @@
         android:id="@+id/Messange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="60dp"
         android:text="@string/textoMensaje"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/VerTexto" />
 
@@ -30,10 +31,10 @@
         android:id="@+id/botonAlmacenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="84dp"
         android:text="@string/botonAlmacenar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Messange" />
 
@@ -55,8 +56,8 @@
         android:text="@string/botonDescifrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonConcatenar"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintVertical_bias="0.18" />
 </androidx.constraintlayout.widget.ConstraintLayout>

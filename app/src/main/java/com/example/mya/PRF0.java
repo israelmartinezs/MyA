@@ -21,26 +21,26 @@ public class PRF0 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prf0);
-        fragmento=(TextView)findViewById(R.id.NombreArchivo);
+        fragmento=(TextView)findViewById(R.id.VerTexto);
         almacenar=(Button)findViewById(R.id.botonAlmacenar);
         concatenar=(Button)findViewById(R.id.botonConcatenar);
         descifrar=(Button)findViewById(R.id.botonDescifrar);
         almacenar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                System.out.println("almacenar");
             }
         });
         concatenar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                System.out.println("concatenar");
             }
         });
         descifrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                System.out.println("descifrar");
             }
         });
     }
@@ -59,6 +59,6 @@ public class PRF0 extends AppCompatActivity {
         }else{
 
         }
-            //textView.setText("esperando por NDEF");
+            fragmento.setText("esperando por NDEF");
     }
 }
