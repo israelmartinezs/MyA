@@ -3,6 +3,7 @@ package com.example.mya;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.security.NoSuchAlgorithmException;
@@ -232,7 +234,7 @@ public class IngresoDeDatos extends AppCompatActivity {
     public String readSavedDataR ( Uri uri) throws FileNotFoundException {
         StringBuffer datax = new StringBuffer("");
         ParcelFileDescriptor pfd = this.getContentResolver().openFileDescriptor(uri, "r");
-        System.out.println(uri.get);
+        System.out.println(uri.getLastPathSegment());
         try {
             FileInputStream fIn =new  FileInputStream(pfd.getFileDescriptor()) ;
             InputStreamReader isr = new InputStreamReader ( fIn ) ;
@@ -250,6 +252,19 @@ public class IngresoDeDatos extends AppCompatActivity {
         }
         Log.d("hollllla",datax.toString());
         return datax.toString() ;
+    }
+    private void writeToFile(String data, Context context){
+        OutputStreamWriter outputStreamWriter= null;
+        try {
+            outputStreamWriter = new OutputStreamWriter(context.openFileOutput("nombre.secret", Context.MODE_APPEND));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
     private String cifrarF(String datos, SecretKey key) throws Exception{
         //SecretKeySpec secretKey = generateKey(password);
