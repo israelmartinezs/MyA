@@ -52,13 +52,13 @@ public class PRF0 extends AppCompatActivity {
             Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             NdefMessage message = (NdefMessage) rawMessages[0];
             cadena=new String(message.getRecords()[0].getPayload());
-            System.out.println(cadena);
+            System.out.println(cadena+"holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ");
             fragmento.setText(cadena);
             //textView.setText(new String(message.getRecords()[0].getPayload()));
 
         }else{
-
-        }
             fragmento.setText("esperando por NDEF");
+        }
+
     }
 }
