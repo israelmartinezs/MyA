@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -19,9 +20,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.security.SecureRandom;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class PDA extends AppCompatActivity {
     Button selecciona;
@@ -56,8 +67,14 @@ public class PDA extends AppCompatActivity {
             public void onClick(View v) {
                 try{
                     System.out.println("acac "+cadenas);
+                    final Map<Integer, byte[]> admin=recupera(cadenas);
                     //textoSalida = descifrar(readSavedDataR(file2cipher),ree);
-
+                    final Scheme a=new Scheme(new SecureRandom(),5,3);
+                    final byte[] rec=a.recuperar(admin);
+                    SecretKey ley= new SecretKeySpec(rec,0,rec.length,"AES");
+                    final byte[] kettobyte=ley.getEncoded();
+                    Log.d("recuperada",Arrays.toString(kettobyte));
+                    Toast.makeText(v.getContext(),"llave recuperada",Toast.LENGTH_SHORT).show();
                     //alterDocument(file2cipher,textoSalida.getBytes());
                 }catch (Exception e){
                     e.printStackTrace();
@@ -135,4 +152,49 @@ public class PDA extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    /*
+    public Map<Integer, byte[]> recupera(String s){
+        String [] datos=s.split("/*");
+        for (int i ; i<datos.length; i++){
+            System.out.println(datos[i]);
+        }
+
+    }*/
+    public Map<Integer, byte[]> recupera(String s){
+        String [] datos=s.split("[*]");
+
+        final int n=datos.length;
+        final Map<Integer, byte[]> parts = new HashMap <> (n);
+        for (int i=0 ; i<datos.length; i++){
+            String [] puntos=datos[i].split("[?]");
+            Integer a= Integer.valueOf(puntos[0]);
+            byte [] b= bytes(puntos[1]);
+            System.out.println("x"+a+ "Y"+Arrays.toString(b));
+            parts.put(a,b);
+            //by(puntos[1]);
+        }
+        return Collections.unmodifiableMap(parts);
+
+    }
+    public byte [] bytes(String cadi){
+        cadi=cadi.substring(1, cadi.length()-1);
+        cadi= cadi.replaceAll(" ", "");
+        String [] numeros= cadi.split("[,]");
+
+        int [] numerosInt= new int[numeros.length];
+        byte [] salida= new byte[numeros.length];
+        for (int i = 0; i < numeros.length; i++) {
+            numerosInt[i]=Integer.parseInt(numeros[i]);
+            System.out.println("numeros: "+ numerosInt[i]);
+            salida[i]=(byte)numerosInt[i];
+        }
+        return salida;
+    }
+    /*
+    public void by(String a){
+        String [] dato=a.split("\[");
+        for (int j=0;j<dato.length; j++){
+            System.out.println("acaando"+dato[j]);
+        }
+    }*/
 }
