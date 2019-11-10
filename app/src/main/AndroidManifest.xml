@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PCF"></activity>
+        <activity android:name=".PDA"></activity>
+        <activity android:name=".PRFSA" />
+        <activity android:name=".PCF" />
         <activity android:name=".PCELL" />
         <activity android:name=".FCEF" />
         <activity android:name=".PMK" />

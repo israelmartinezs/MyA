@@ -17,5 +17,5 @@
     <string name="botonConcatenar">Concatenar</string>
     <string name="botonDescifrar">Descifrar</string>
     <string name="textoMensaje">Que quieres hacer con el fragmento</string>
-
+    <string name="enviar">Enviar</string>
 </resources>

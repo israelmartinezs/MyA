@@ -56,7 +56,8 @@ public class PCF extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Pulsado"+numb,Toast.LENGTH_SHORT).show();
             texto=texto+readFile(files[numb]);
             System.out.println("texto a enviar: "+texto);
-            Intent intent=new Intent(v.getContext(),PCELL.class);
+            //Intent intent=new Intent(v.getContext(),PCELL.class);
+            Intent intent= new Intent(v.getContext(),PRFSA.class);
             intent.putExtra("saludo","hola");
             intent.putExtra("cadena",texto);
             //intent.putExtra("x",numeros[numb]);
