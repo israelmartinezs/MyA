@@ -23,12 +23,15 @@ public class PCELL extends AppCompatActivity implements NfcAdapter.CreateNdefMes
         setContentView(R.layout.activity_pcell);
         NfcAdapter nfcAdapter=NfcAdapter.getDefaultAdapter(this);//inicializador
         Bundle datos=this.getIntent().getExtras();
+        /// solo obtener una cadena y es a se mandara
+        String cadena=datos.getString("cadena");
+        System.out.println("cadena que se va a enviar es : " + cadena);
         String saludo=datos.getString("saludo");
         Integer numerox=(Integer) datos.get("x");
         byte[] numeroy=(byte[])datos.get("y");
         System.out.println("adentro");
-        System.out.println(numerox+ Arrays.toString(numeroy));
-        cadena=numerox.toString()+"?"+Arrays.toString(numeroy)+"*";
+        //System.out.println(numerox+ Arrays.toString(numeroy));
+        //cadena=numerox.toString()+"?"+Arrays.toString(numeroy)+"*";
         System.out.println("salida"+cadena);/////////////////////////////////////
         Toast.makeText(this,saludo,Toast.LENGTH_SHORT).show();
         boton=(Button)findViewById(R.id.BotonPCEELRegresar);

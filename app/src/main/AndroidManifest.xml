@@ -17,12 +17,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".PCF"></activity>
         <activity android:name=".PCELL" />
         <activity android:name=".FCEF" />
         <activity android:name=".PMK" />
         <activity android:name=".IngresoDeDatos" />
-        <activity android:name=".MainActivity">
+        <!--
+         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,15 +39,18 @@
                 <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
-         <!--<activity
+        -->
+        <activity
             android:name=".PRF0"
             android:label="Fragmento reciver">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <data android:mimeType="text/plain"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <data android:mimeType="text/plain" />
             </intent-filter>
-        </activity>-->
+        </activity>
     </application>
 
 </manifest>
