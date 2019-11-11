@@ -33,7 +33,7 @@ public class PCELL extends AppCompatActivity implements NfcAdapter.CreateNdefMes
         //System.out.println(numerox+ Arrays.toString(numeroy));
         //cadena=numerox.toString()+"?"+Arrays.toString(numeroy)+"*";
         System.out.println("salida"+cadena);/////////////////////////////////////
-        Toast.makeText(this,saludo,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"envia",Toast.LENGTH_SHORT).show();
         boton=(Button)findViewById(R.id.BotonPCEELRegresar);
         nfcAdapter.setNdefPushMessageCallback(this,this);
         boton.setOnClickListener(new View.OnClickListener() {

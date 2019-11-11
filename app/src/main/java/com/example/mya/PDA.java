@@ -76,9 +76,14 @@ public class PDA extends AppCompatActivity {
                     Log.d("recuperada",Arrays.toString(kettobyte));
                     Toast.makeText(v.getContext(),"llave recuperada",Toast.LENGTH_SHORT).show();
                     //alterDocument(file2cipher,textoSalida.getBytes());
+                    textoSalida = descifrar(readSavedDataR(file2cipher),ley);
+                    //tvTexto.setText(textoSalida);
+                    alterDocument(file2cipher,textoSalida.getBytes());
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+
+
             }
         });
     }

@@ -16,6 +16,9 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PRF0 extends AppCompatActivity {
     String cadena;
@@ -24,7 +27,8 @@ public class PRF0 extends AppCompatActivity {
     Button concatenar;
     Button descifrar;
     String arch1="1?[-45, 97, 109, -91, -61, -87, 68, -79, -92, 82, 75, -125, 0, -115, 80, -109]*";
-    String arch2="4?[-81, 11, -124, 124, -70, 6, 91, -47, 79, -110, 27, -111, -19, 89, 92, -29]*";
+    //String arch2="4?[-81, 11, -124, 124, -70, 6, 91, -47, 79, -110, 27, -111, -19, 89, 92, -29]*";
+    String arch2="2?[86, -109, 125, 127, -55, 71, 107, -106, -31, -97, 107, -99, 55, -42, 53, -127]*";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,7 @@ public class PRF0 extends AppCompatActivity {
         concatenar=(Button)findViewById(R.id.botonConcatenar);
         descifrar=(Button)findViewById(R.id.botonDescifrar);
         String [] archivos=fileList();
+        final Date date = new Date();
         if (existeA("llaveprueba.key",archivos)){
 
         }
@@ -44,8 +49,10 @@ public class PRF0 extends AppCompatActivity {
         almacenar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ssddMMyyyy");
+                String hora=hourdateFormat.format(date);
                 System.out.println("almacenar");
-                guarda(arch2,"llavedos.key");
+                guarda(arch2,"llavedos.key");///cadena,hora.key
             }
         });
         concatenar.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +60,7 @@ public class PRF0 extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println("concatenar");
                 Intent intent= new Intent(v.getContext(),PCF.class);
-                intent.putExtra("fragmentoRec",arch2);
+                intent.putExtra("fragmentoRec",arch2);//cadena
                 startActivity(intent);
 
             }

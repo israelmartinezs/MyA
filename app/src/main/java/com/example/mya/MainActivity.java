@@ -20,4 +20,9 @@ public class MainActivity extends AppCompatActivity {
         Intent cifrarI = new Intent(this, IngresoDeDatos.class);
         startActivity(cifrarI);
     }
+    public void visualizar(View view){
+        Intent intent = new Intent(this,PVF.class);
+        startActivity(intent);
+    }
+
 }

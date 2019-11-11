@@ -18,6 +18,7 @@ public class FCEF extends AppCompatActivity {
     int numero=4;
     LinearLayout botonera;
     Integer numeros[];
+    String enviar;
     byte y[][];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class FCEF extends AppCompatActivity {
         Bundle datos=this.getIntent().getExtras();
         Integer  indice[]= (Integer[]) datos.get("x");
         byte resultado[][]=(byte[][]) datos.get("y");
+        //enviar=indice+"?"+
         numeros=indice;
         y=resultado;
         numero=datos.getInt("numero");
@@ -58,9 +60,11 @@ public class FCEF extends AppCompatActivity {
         {
             Toast.makeText(getApplicationContext(),"Pulsado"+numb,Toast.LENGTH_SHORT).show();
             Intent intent=new Intent(v.getContext(),PCELL.class);
+            enviar=numeros[numb]+"?"+Arrays.toString(y[numb])+"*";
             intent.putExtra("saludo","hola");
-            intent.putExtra("x",numeros[numb]);
-            intent.putExtra("y",y[numb]);
+            //intent.putExtra("x",numeros[numb]);
+            //intent.putExtra("y",y[numb]);
+            intent.putExtra("cadena",enviar);
             startActivity(intent);
         }
 

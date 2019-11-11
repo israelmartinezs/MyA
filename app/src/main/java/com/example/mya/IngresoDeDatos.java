@@ -3,6 +3,7 @@ package com.example.mya;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -27,7 +29,10 @@ import java.lang.reflect.Array;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -112,7 +117,7 @@ public class IngresoDeDatos extends AppCompatActivity {
                     numero1=Integer.parseInt(NumeroDeFragmentos.getText().toString());
                     numero2=Integer.parseInt(NumeroMinimo.getText().toString());
                     textoSalida = cifrarF(readSavedDataR(file2cipher), key);
-                    Log.d("texto",textoSalida);
+                    //Log.d("texto",textoSalida);
                     alterDocument(file2cipher,textoSalida.getBytes());
                     //System.out.println(file2cipher.);
                     //Secret Sharing
@@ -143,6 +148,12 @@ public class IngresoDeDatos extends AppCompatActivity {
                         System.out.println(nume[ko]+"  ->  "+Arrays.toString(bytes[ko]));
                         ko++;
                     }
+                    final Date date = new Date();
+                    DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss*dd.MM.yyyy");
+                    String hora=hourdateFormat.format(date);
+                    System.out.println("almacenar");
+                    guarda(nume[0]+"?"+Arrays.toString(bytes[0])+"*",hora+".key");///cadena,hora.key
+
                     Intent intent = new Intent(v.getContext(),FCEF.class);
                     /////////////
                     intent.putExtra("x",nume);
@@ -213,6 +224,20 @@ public class IngresoDeDatos extends AppCompatActivity {
         //});
 
 
+    }
+    public void guarda(String cadena,String nombre){
+        try {
+            OutputStreamWriter archivo= new OutputStreamWriter(openFileOutput(nombre, Activity.MODE_PRIVATE));
+            //archivo.write(editText.getText().toString());
+            archivo.write(cadena);
+            archivo.flush();
+            archivo.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(this,"guardado fragmento 1",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -326,4 +351,5 @@ public class IngresoDeDatos extends AppCompatActivity {
         }
         return datax.toString() ;
     }
+
 }
