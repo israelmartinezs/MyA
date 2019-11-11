@@ -19,6 +19,13 @@ import java.io.OutputStreamWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import android.content.Intent;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
+import android.os.Parcelable;
+//  import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.TextView;
 
 public class PRF0 extends AppCompatActivity {
     String cadena;
@@ -52,7 +59,7 @@ public class PRF0 extends AppCompatActivity {
                 DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ssddMMyyyy");
                 String hora=hourdateFormat.format(date);
                 System.out.println("almacenar");
-                guarda(arch2,"llavedos.key");///cadena,hora.key
+                guarda(cadena,hora+".key");///cadena,hora.key
             }
         });
         concatenar.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +67,7 @@ public class PRF0 extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println("concatenar");
                 Intent intent= new Intent(v.getContext(),PCF.class);
-                intent.putExtra("fragmentoRec",arch2);//cadena
+                intent.putExtra("fragmentoRec",cadena    );//cadena
                 startActivity(intent);
 
             }
