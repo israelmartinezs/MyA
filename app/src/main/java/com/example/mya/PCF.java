@@ -20,10 +20,12 @@ public class PCF extends AppCompatActivity {
     int numero=4;
     LinearLayout botonera;
     String Texto;
+    Button regresar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pcf);
+        regresar=(Button)findViewById(R.id.botonRregresar);
         Bundle datos=this.getIntent().getExtras();
         String FragRec=datos.getString("fragmentoRec");
 
@@ -38,6 +40,12 @@ public class PCF extends AppCompatActivity {
             botonera.addView(boton);
             boton.setOnClickListener(new PCF.ButtonsOnClickListener(this,i,FragRec));
         }
+        regresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     class ButtonsOnClickListener implements View.OnClickListener
     {

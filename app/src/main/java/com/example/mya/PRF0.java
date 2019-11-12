@@ -43,7 +43,7 @@ public class PRF0 extends AppCompatActivity {
         fragmento=(TextView)findViewById(R.id.VerTexto);
         almacenar=(Button)findViewById(R.id.botonAlmacenar);
         concatenar=(Button)findViewById(R.id.botonConcatenar);
-        descifrar=(Button)findViewById(R.id.botonDescifrar);
+        //descifrar=(Button)findViewById(R.id.botonDescifrar);
         String [] archivos=fileList();
         final Date date = new Date();
         if (existeA("llaveprueba.key",archivos)){
@@ -72,12 +72,7 @@ public class PRF0 extends AppCompatActivity {
 
             }
         });
-        descifrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("descifrar");
-            }
-        });
+
     }
     private boolean existeA(String nombre,String [] files){
         for(int i=0 ; i<files.length;i++)
@@ -98,6 +93,7 @@ public class PRF0 extends AppCompatActivity {
             e.printStackTrace();
         }
         Toast.makeText(this,"guardado",Toast.LENGTH_SHORT).show();
+        finish();
     }
     @Override
     protected void onResume(){

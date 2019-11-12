@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">keySharing</string>
-    <string name="BotonCifrar">Cifrar</string>
-    <string name="botonvisualizar">Visualizar</string>
-    <string name="FragmentosACrear">Ingresa el numero de fragmentos a crear</string>
+    <string name="BotonCifrar">Cifrar Archivo</string>
+    <string name="botonvisualizar">Visualizar Fragmentos</string>
+    <string name="FragmentosACrear">Ingresa el numero de secretos a crear(numero de participantes)</string>
     <string name="FragmentosMinimos">Ingresa el numero de fragmentos minimos para recuperar el secreto</string>
     <string name="botonRegresar">Regresar</string>
 
@@ -16,7 +16,10 @@
     <string name="botonAlmacenar">Almacenar</string>
     <string name="botonConcatenar">Concatenar</string>
     <string name="botonDescifrar">Descifrar</string>
-    <string name="textoMensaje">Que quieres hacer con el fragmento</string>
+    <string name="textoMensaje">Que quieres hacer con el fragmento?</string>
     <string name="enviar">Enviar</string>
     <string name="botoneliminar">Eliminar</string>
+    <string name="QQH">Que quieres hacer?</string>
+
+    <!--<string name=""></string>-->
 </resources>

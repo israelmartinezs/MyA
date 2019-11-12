@@ -19,11 +19,13 @@ public class FCEF extends AppCompatActivity {
     LinearLayout botonera;
     Integer numeros[];
     String enviar;
+    Button regresar;
     byte y[][];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fcef);
+        regresar=(Button)findViewById(R.id.botonRegresar);
         Bundle datos=this.getIntent().getExtras();
         Integer  indice[]= (Integer[]) datos.get("x");
         byte resultado[][]=(byte[][]) datos.get("y");
@@ -45,6 +47,15 @@ public class FCEF extends AppCompatActivity {
             botonera.addView(boton);
             boton.setOnClickListener(new ButtonsOnClickListener(this,i));
         }
+        regresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(v.getContext(),MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
     }
     class ButtonsOnClickListener implements View.OnClickListener
