@@ -25,7 +25,7 @@ public class FCEF extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fcef);
-        regresar=(Button)findViewById(R.id.botonRegresar);
+        regresar=(Button)findViewById(R.id.botonFinish);
         Bundle datos=this.getIntent().getExtras();
         Integer  indice[]= (Integer[]) datos.get("x");
         byte resultado[][]=(byte[][]) datos.get("y");
