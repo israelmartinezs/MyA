@@ -80,6 +80,7 @@ public class IngresoDeDatos extends AppCompatActivity {
         //final Map<Integer, byte[]>[] fragmentos = new Map<Integer, byte[]>[1];
         //NumeroMinimo.getTex
         //key generate
+
         KeyGenerator keygen= null;
         try {
             keygen = KeyGenerator.getInstance("AES","BC");
@@ -118,7 +119,7 @@ public class IngresoDeDatos extends AppCompatActivity {
                     numero2=Integer.parseInt(NumeroMinimo.getText().toString());
                     textoSalida = cifrarF(readSavedDataR(file2cipher), key);
                     //Log.d("texto",textoSalida);
-                    alterDocument(file2cipher,textoSalida.getBytes());
+                    alterDocument(file2cipher,textoSalida.getBytes("UTF-8"));
                     //System.out.println(file2cipher.);
                     //Secret Sharing
                     final byte[] k=key.getEncoded();
@@ -176,7 +177,7 @@ public class IngresoDeDatos extends AppCompatActivity {
                 try{
                     textoSalida = descifrar(readSavedDataR(file2cipher),ree);
                     //tvTexto.setText(textoSalida);
-                    alterDocument(file2cipher,textoSalida.getBytes());
+                    alterDocument(file2cipher,textoSalida.getBytes("UTF-8"));
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -227,9 +228,9 @@ public class IngresoDeDatos extends AppCompatActivity {
     }
     public void guarda(String cadena,String nombre){
         try {
-            OutputStreamWriter archivo= new OutputStreamWriter(openFileOutput(nombre, Activity.MODE_PRIVATE));
+            OutputStreamWriter archivo= new OutputStreamWriter(openFileOutput(nombre, Activity.MODE_PRIVATE),"UTF-8");
             //archivo.write(editText.getText().toString());
-            archivo.write(cadena);
+            archivo.write(cadena );
             archivo.flush();
             archivo.close();
         } catch (FileNotFoundException e) {
@@ -260,23 +261,27 @@ public class IngresoDeDatos extends AppCompatActivity {
         StringBuffer datax = new StringBuffer("");
         ParcelFileDescriptor pfd = this.getContentResolver().openFileDescriptor(uri, "r");
         System.out.println(uri.getLastPathSegment());
+        String salida="";
         try {
             FileInputStream fIn =new  FileInputStream(pfd.getFileDescriptor()) ;
-            InputStreamReader isr = new InputStreamReader ( fIn ) ;
+            InputStreamReader isr = new InputStreamReader ( fIn ,"UTF-8") ;
             BufferedReader buffreader = new BufferedReader ( isr ) ;
 
             String readString = buffreader.readLine ( ) ;
             while ( readString != null ) {
                 datax.append(readString);
-                readString = buffreader.readLine ( ) ;
+                readString =buffreader.readLine ( ) ;
             }
+            salida=readString;
 
             isr.close ( ) ;
         } catch ( IOException ioe ) {
             ioe.printStackTrace ( ) ;
         }
         Log.d("hollllla",datax.toString());
+
         return datax.toString() ;
+        //return salida;
     }
     private void writeToFile(String data, Context context){
         OutputStreamWriter outputStreamWriter= null;
@@ -293,9 +298,11 @@ public class IngresoDeDatos extends AppCompatActivity {
     }
     private String cifrarF(String datos, SecretKey key) throws Exception{
         //SecretKeySpec secretKey = generateKey(password);
-        Cipher cipher = Cipher.getInstance("AES");
+        //Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+
+          Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, key);
-        byte[] datosEncriptadosBytes = cipher.doFinal(datos.getBytes());
+        byte[] datosEncriptadosBytes = cipher.doFinal(datos.getBytes("UTF-8"));
         String datosEncriptadosString = Base64.encodeToString(datosEncriptadosBytes, Base64.DEFAULT);
         return datosEncriptadosString;
         ////hola
@@ -303,6 +310,8 @@ public class IngresoDeDatos extends AppCompatActivity {
     private String descifrar(String datos, SecretKey key) throws Exception{
         //SecretKeySpec secretKey = generateKey(password);
         Cipher cipher = Cipher.getInstance("AES");
+        //Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+
         cipher.init(Cipher.DECRYPT_MODE, key);
         byte[] datosDescoficados = Base64.decode(datos, Base64.DEFAULT);
         byte[] datosDesencriptadosByte = cipher.doFinal(datosDescoficados);
@@ -334,6 +343,7 @@ public class IngresoDeDatos extends AppCompatActivity {
     }
     public String readSavedData ( ParcelFileDescriptor p) {
         StringBuffer datax = new StringBuffer("");
+        String salida="";
         try {
             FileInputStream fIn =new  FileInputStream(p.getFileDescriptor()) ;
             InputStreamReader isr = new InputStreamReader ( fIn ) ;
@@ -341,15 +351,16 @@ public class IngresoDeDatos extends AppCompatActivity {
 
             String readString = buffreader.readLine ( ) ;
             while ( readString != null ) {
-                datax.append(readString);
-                readString = buffreader.readLine ( ) ;
+                //datax.append(readString);
+                readString =readString + buffreader.readLine ( ) ;
             }
+            salida=readString;
 
             isr.close ( ) ;
         } catch ( IOException ioe ) {
             ioe.printStackTrace ( ) ;
         }
-        return datax.toString() ;
+        return  salida;
     }
 
 }
