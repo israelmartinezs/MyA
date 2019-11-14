@@ -30,7 +30,7 @@ public class PCF extends AppCompatActivity {
         String FragRec=datos.getString("fragmentoRec");
 
         String [] files= fileList();
-        Log.d("hola","jajajajaja");
+        //Log.d("hola","jajajajaja");
         botonera=(LinearLayout)findViewById(R.id.botones2);
         LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         for(int i=0;i<files.length;i++){

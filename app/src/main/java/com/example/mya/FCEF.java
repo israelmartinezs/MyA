@@ -40,10 +40,10 @@ public class FCEF extends AppCompatActivity {
         Log.d("hola","jajajajaja");
         botonera=(LinearLayout)findViewById(R.id.botones);
         LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        for(int i=0;i<numero;i++){
+        for(int i=1;i<numero;i++){
             Button boton=new Button(this);
             boton.setLayoutParams(lp);
-            boton.setText("boton"+i);
+            boton.setText("Fragmento: "+i);
             botonera.addView(boton);
             boton.setOnClickListener(new ButtonsOnClickListener(this,i));
         }

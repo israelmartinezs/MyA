@@ -56,7 +56,7 @@ public class PRF0 extends AppCompatActivity {
         almacenar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ssddMMyyyy");
+                DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss*dd.MM.y yyy");
                 String hora=hourdateFormat.format(date);
                 System.out.println("almacenar");
                 guarda(cadena,hora+".key");///cadena,hora.key

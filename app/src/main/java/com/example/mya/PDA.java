@@ -69,14 +69,15 @@ public class PDA extends AppCompatActivity {
                     System.out.println("acac "+cadenas);
                     final Map<Integer, byte[]> admin=recupera(cadenas);
                     //textoSalida = descifrar(readSavedDataR(file2cipher),ree);
-                    final Scheme a=new Scheme(new SecureRandom(),5,3);
-                    final byte[] rec=a.recuperar(admin);
+                    final Scheme a=new Scheme(new SecureRandom(),9,9);
+                      final byte[] rec=a.recuperar(admin);
                     SecretKey ley= new SecretKeySpec(rec,0,rec.length,"AES");
                     final byte[] kettobyte=ley.getEncoded();
                     Log.d("recuperada",Arrays.toString(kettobyte));
                     Toast.makeText(v.getContext(),"llave recuperada",Toast.LENGTH_SHORT).show();
                     //alterDocument(file2cipher,textoSalida.getBytes());
                     textoSalida = descifrar(readSavedDataR(file2cipher),ley);
+                    //llaveguardada=ley;
                     //tvTexto.setText(textoSalida);
                     alterDocument(file2cipher,textoSalida.getBytes());
                 }catch (Exception e){

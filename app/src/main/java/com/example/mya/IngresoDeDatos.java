@@ -276,7 +276,13 @@ public class IngresoDeDatos extends AppCompatActivity {
             ioe.printStackTrace ( ) ;
         }
         Log.d("hollllla",datax.toString());
+<<<<<<< Updated upstream
         return datax.toString() ;
+=======
+
+        return datax.toString();
+        //return salida;
+>>>>>>> Stashed changes
     }
     private void writeToFile(String data, Context context){
         OutputStreamWriter outputStreamWriter= null;
